@@ -1,0 +1,639 @@
+* {
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-primary);
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 14px 14px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 0 14px 14px rgba(0, 0, 0, 0.05);
+  border: solid 4px transparent;
+  border-radius: 14px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 14px 14px rgba(0, 0, 0, 0.1);
+          box-shadow: inset 0 0 14px 14px rgba(0, 0, 0, 0.1);
+  border: solid 4px transparent;
+  border-radius: 14px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  -webkit-box-shadow: inset 0 0 14px 14px rgba(0, 0, 0, 0.2);
+          box-shadow: inset 0 0 14px 14px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+#app {
+  background-color: #202225;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  opacity: 0;
+  -webkit-transition: opacity 100ms ease-in-out;
+  transition: opacity 100ms ease-in-out;
+}
+
+#app.visible {
+  opacity: 1;
+}
+
+#app > .top-bar {
+  width: 100vw;
+  height: 22px;
+  background-color: #202225;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0 6px;
+}
+
+#app > .top-bar > .logo-title {
+  color: #72767d;
+  font-size: 16px;
+}
+
+#app > .top-bar > .controls {
+  color: #a8a8a8;
+  height: 16px;
+}
+
+#app .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+#app .container > .guilds-bar {
+  width: 72px;
+  height: calc(100vh - 22px);
+  padding: 8px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#app .container > .guilds-bar > .guild-circle {
+  margin-bottom: 8px;
+  border-radius: 50%;
+  position: relative;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 48px;
+  height: 48px;
+  -webkit-transition: opacity 100ms ease-in-out;
+  transition: opacity 100ms ease-in-out;
+}
+
+#app .container > .guilds-bar > .guild-circle:hover {
+  opacity: 0.7;
+}
+
+#app .container > .guilds-bar > .guild-circle:hover, #app .container > .guilds-bar > .guild-circle.active {
+  border: 2px solid #ffffff;
+}
+
+#app .container > .guilds-bar > .guild-circle:hover > .member-count, #app .container > .guilds-bar > .guild-circle.active > .member-count {
+  top: -2px;
+  left: -2px;
+}
+
+#app .container > .guilds-bar > .guild-circle > .member-count {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  background-color: #3ba55d;
+  color: white;
+  font-size: 12px;
+}
+
+#app .container > .main-area {
+  width: 100%;
+  height: calc(100vh - 22px);
+  background-color: #36393f;
+  border-top-left-radius: 6px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  contain: content;
+}
+
+#app .container > .main-area > .left-bar {
+  width: 240px;
+  background-color: #2f3136;
+  height: calc(100vh - 22px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: relative;
+}
+
+#app .container > .main-area > .left-bar > .channels-sidebar {
+  width: 240px;
+  background-color: #2f3136;
+}
+
+#app .container > .main-area > .left-bar > .channels-sidebar > .guild-info {
+  height: 44px;
+  -webkit-box-shadow: 0px 4px 6px -6px black;
+          box-shadow: 0px 4px 6px -6px black;
+  font-size: 10px;
+  color: #e9e9e9;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 8px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#app .container > .main-area > .left-bar > .channels-sidebar > .guild-info > .guild-info-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#app .container > .main-area > .left-bar > .channels-sidebar > .guild-info > .guild-info-wrapper > .guild-name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+#app .container > .main-area > .left-bar > .channels-sidebar > .guild-info > .guild-info-wrapper > .other-info {
+  font-weight: 400;
+  font-size: 11px;
+  color: #b9bbbe;
+}
+
+#app .container > .main-area > .left-bar > .channels-sidebar > .channels-wrapper {
+  display: block;
+  width: 100%;
+  height: calc(100vh - 118px);
+  color: #72767d;
+  padding-top: 16px;
+  overflow-y: auto !important;
+}
+
+#app .container > .main-area > .left-bar > .channels-sidebar > .channels-wrapper .category {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding-left: 4px;
+  padding-bottom: 8px;
+}
+
+#app .container > .main-area > .left-bar > .channels-sidebar > .channels-wrapper .category > .name {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 4px;
+}
+
+#app .container > .main-area > .left-bar > .channels-sidebar > .channels-wrapper .category > .name:hover, #app .container > .main-area > .left-bar > .channels-sidebar > .channels-wrapper .category > .name.active {
+  color: #dcddde;
+}
+
+#app .container > .main-area > .left-bar > .channels-sidebar > .channels-wrapper .category > .channels {
+  padding-left: 4px;
+}
+
+#app .container > .main-area > .left-bar > .channels-sidebar > .channels-wrapper .channel {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  margin: 4px;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+#app .container > .main-area > .left-bar > .channels-sidebar > .channels-wrapper .channel:hover, #app .container > .main-area > .left-bar > .channels-sidebar > .channels-wrapper .channel.active {
+  color: #dcddde;
+  background-color: #34373c;
+}
+
+#app .container > .main-area > .left-bar > .channels-sidebar > .channels-wrapper .channel > .icon {
+  width: 24px;
+  height: 24px;
+}
+
+#app .container > .main-area > .left-bar > .channels-sidebar > .channels-wrapper .channel > .name {
+  margin-left: 4px;
+}
+
+#app .container > .main-area > .left-bar > .quick-controls {
+  width: 100%;
+  height: 52px;
+  background-color: #292b2f;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0 8px;
+}
+
+#app .container > .main-area > .left-bar > .quick-controls > .user-area {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+#app .container > .main-area > .left-bar > .quick-controls > .user-area > .user-avatar {
+  background-color: red;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: relative;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#app .container > .main-area > .left-bar > .quick-controls > .user-area > .user-avatar > .user-status {
+  position: absolute;
+  background-color: #cc3e41;
+  width: 10px;
+  height: 10px;
+  bottom: 0px;
+  right: 0px;
+  border-radius: 50%;
+}
+
+#app .container > .main-area > .left-bar > .quick-controls > .user-area > .user-tag {
+  margin-left: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #dfdfdf;
+}
+
+#app .container > .main-area > .left-bar > .quick-controls > .controls {
+  color: #b9bbbe;
+}
+
+#app .container > .main-area > .messages-container {
+  width: 100%;
+  background-color: #36393f;
+  height: calc(100vh - 22px);
+}
+
+#app .container > .main-area > .messages-container > .messages-topbar {
+  height: 44px;
+  -webkit-box-shadow: 0px 4px 6px -6px black;
+          box-shadow: 0px 4px 6px -6px black;
+  color: #e9e9e9;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 8px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  font-weight: 600;
+}
+
+#app .container > .main-area > .messages-container > .messages-topbar > .channel-info {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+#app .container > .main-area > .messages-container > .messages-topbar > .channel-info > .name {
+  margin-left: 6px;
+  font-size: 18px;
+}
+
+#app .container > .main-area > .messages-container > .messages-topbar > .quick-actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+#app .container > .main-area > .messages-container > .messages-topbar > .quick-actions > span {
+  margin: 0 4px;
+}
+
+#app .container > .main-area > .messages-container > .messages-topbar > .quick-actions > span > .search-box {
+  height: 24px;
+  width: 144px;
+  background-color: #202225;
+  border-radius: 4px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0px 4px;
+}
+
+#app .container > .main-area > .messages-container > .messages-topbar > .quick-actions > span > .search-box > .text {
+  color: #36393f;
+  font-size: 14px;
+}
+
+#app .container > .main-area > .messages-container > .messages-topbar > .quick-actions > span > .search-box > .icon {
+  color: #36393f;
+  width: 18px;
+  height: 18px;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  height: calc(100vh - 22px - 44px);
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper {
+  width: 100%;
+  height: calc(100vh - 22px - 44px - 72px);
+  overflow-y: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding-top: 16px;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 16px;
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .avatar {
+  min-width: 40px;
+  min-height: 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .content-area {
+  margin-left: 16px;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .content-area > .username {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  margin-bottom: 4px;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .content-area > .username > .discrim-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .content-area > .username > .discrim-container > .discrim {
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .content-area > .content {
+  color: #e0e0e0;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .input-container {
+  width: 100%;
+  min-height: 72px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 0 8px;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .input-container > .text-area {
+  width: 100%;
+  min-width: 44px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  background-color: #40444b;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .input-container > .text-area.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .input-container > .text-area .attachment-icon {
+  width: 24px;
+  height: 24px;
+  color: #b9bbbe;
+  margin-right: 8px;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .input-container > .text-area > .writing-area {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-height: 42px;
+  color: #ececec;
+  font-size: 16px;
+  width: 100%;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .input-container > .text-area > .writing-area > .content {
+  width: 100%;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .guild-members {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 240px;
+  height: calc(100vh - 22px - 44px);
+  background-color: #2f3136;
+}

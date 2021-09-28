@@ -1,0 +1,474 @@
+* {
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-primary);
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 14px 14px rgba(0, 0, 0, 0.05);
+  border: solid 4px transparent;
+  border-radius: 14px;
+}
+
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 14px 14px rgba(0, 0, 0, 0.1);
+  border: solid 4px transparent;
+  border-radius: 14px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  box-shadow: inset 0 0 14px 14px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+#app {
+  background-color: #202225;
+
+  display: flex;
+  flex-direction: column;
+
+  opacity: 0;
+  transition: opacity 100ms ease-in-out;
+  &.visible {
+    opacity: 1;
+  }
+
+  > .top-bar {
+    width: 100vw;
+    height: 22px;
+    background-color: #202225;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+
+    > .logo-title {
+      color: #72767d;
+      font-size: 16px;
+    }
+
+    > .controls {
+      color: rgb(168, 168, 168);
+      height: 16px;
+    }
+  }
+
+  .container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    > .guilds-bar {
+      width: 72px;
+      height: calc(100vh - 22px);
+      padding: 8px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+
+      > .guild-circle {
+        margin-bottom: 8px;
+        border-radius: 50%;
+        position: relative;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 48px;
+        height: 48px;
+
+        transition: opacity 100ms ease-in-out;
+        &:hover {
+          opacity: 0.7;
+        }
+        
+        &:hover, &.active {
+          border: 2px solid #ffffff;
+
+          > .member-count {
+            top: -2px;
+            left: -2px;
+          }
+        }
+
+        > .member-count {
+          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          top: 0;
+          left: 0;
+          border-radius: 50%;
+          width: 16px;
+          height: 16px;
+          background-color: #3ba55d;
+          color: white;
+          font-size: 12px;
+        }
+      }
+    }
+
+    > .main-area {
+      width: 100%;
+      height: calc(100vh - 22px);
+      background-color: #36393f;
+      border-top-left-radius: 6px;
+
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      contain: content;
+
+      > .left-bar {
+        width: 240px;
+        background-color: #2f3136;
+        height: calc(100vh - 22px);
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-direction: column;
+        position: relative;
+
+        > .channels-sidebar {
+          width: 240px;
+          background-color: #2f3136;
+
+          > .guild-info {
+            height: 44px;
+            box-shadow: 0px 4px 6px -6px black;
+            font-size: 10px;
+            color: rgb(233, 233, 233);
+            display: flex;
+            padding: 0 8px;
+            align-items: center;
+            justify-content: space-between;
+
+            > .guild-info-wrapper {
+              display: flex;
+              width: 100%;
+              flex-direction: column;
+              align-items: flex-start;
+              justify-content: center;
+
+              > .guild-name {
+                font-weight: 600;
+                font-size: 16px;
+              }
+
+              > .other-info {
+                font-weight: 400;
+                font-size: 11px;
+                color: #b9bbbe;
+              }
+            }
+
+          }
+
+          > .channels-wrapper {
+              display: block;
+              width: 100%;
+              height: calc(100vh - 118px);
+              color: #72767d;
+              padding-top: 16px;
+              overflow-y: auto !important;
+
+              .category {
+                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+                padding-left: 4px;
+                padding-bottom: 8px;
+
+                > .name {
+                  cursor: pointer;
+                  font-weight: 600;
+                  padding: 4px;
+
+                  &:hover, &.active {
+                    color: #dcddde;
+                  }
+                }
+
+                > .channels {
+                  padding-left: 4px;
+                }
+              }
+
+              .channel {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                margin: 4px;
+                padding: 4px;
+                border-radius: 8px;
+
+                &:hover, &.active {
+                  color: #dcddde;
+                  background-color: #34373c;
+                }
+
+                > .icon {
+                  width: 24px;
+                  height: 24px;
+                }
+                > .name {
+                  margin-left: 4px;
+                }
+              }
+            }
+        }
+
+        > .quick-controls {
+          width: 100%;
+          height: 52px;
+          background-color: #292b2f;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 8px;
+
+          > .user-area {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            > .user-avatar {
+              background-color: red;
+              width: 30px;
+              height: 30px;
+              border-radius: 50%;
+              position: relative;
+              background-position: center center;
+              background-repeat: no-repeat;
+              background-size: contain;
+
+              > .user-status {
+                position: absolute;
+                background-color: #cc3e41;
+                width: 10px;
+                height: 10px;
+                bottom: 0px;
+                right: 0px;
+                border-radius: 50%;
+              }
+            }
+
+            > .user-tag {
+              margin-left: 8px;
+              font-size: 14px;
+              font-weight: 500;
+              color: rgb(223, 223, 223);
+            }
+          }
+
+          > .controls {
+            color: #b9bbbe;
+          }
+        }
+      }
+
+      > .messages-container {
+        width: 100%;
+        background-color: #36393f;
+        height: calc(100vh - 22px);
+
+        > .messages-topbar {
+          height: 44px;
+          box-shadow: 0px 4px 6px -6px black;
+          color: rgb(233, 233, 233);
+          display: flex;
+          padding: 0 8px;
+          align-items: center;
+          justify-content: space-between;
+          font-weight: 600;
+
+          > .channel-info {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            > .name {
+              margin-left: 6px;
+              font-size: 18px;
+            }
+
+          }
+
+          > .quick-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            > span {
+              margin: 0 4px;
+
+              > .search-box {
+                height: 24px;
+                width: 144px;
+                background-color: #202225;
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0px 4px;
+
+                > .text {
+                  color: #36393f;
+                  font-size: 14px;
+                }
+
+                > .icon {
+                  color: #36393f;
+                  width: 18px;
+                  height: 18px;
+                }
+              }
+            }
+            
+          }
+        }
+
+        > .messages-main-container {
+          display: flex;
+          align-items: flex-start;
+          justify-content: flex-start;
+
+          > .messages-area {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            width: 100%;
+            height: calc(100vh - 22px - 44px);
+            flex-direction: column;
+
+            > .messages-wrapper {
+              width: 100%;
+              height: calc(100vh - 22px - 44px - 72px);
+              overflow-y: auto;
+              display: flex;
+              align-items: flex-start;
+              justify-content: flex-start;
+              flex-direction: column;
+              padding-top: 16px;
+
+              > .message {
+                width: 100%;
+                display: flex;
+                padding: 0 16px;
+                margin-bottom: 16px;
+                color: #ffffff;
+
+                > .avatar {
+                  min-width: 40px;
+                  min-height: 40px;
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  background-position: center center;
+                  background-repeat: no-repeat;
+                  background-size: contain;
+                }
+
+                > .content-area {
+                  > .username {
+                    display: flex;
+                    position: relative;
+                    margin-bottom: 4px;
+                    
+                    > .discrim-container {
+                      display: flex;
+                      align-items: flex-end;
+                      justify-content: flex-start;
+
+                      > .discrim {
+                        font-size: 12px;
+                        opacity: 0.5;
+                      }
+                    }
+                  }
+
+                  > .content {
+                    color: #e0e0e0;
+                  }
+
+                  margin-left: 16px;
+                }
+              }
+            }
+
+            > .input-container {
+              width: 100%;
+              min-height: 72px;
+              display: flex;
+              align-items: flex-start;
+              justify-content: flex-start;
+              flex-direction: column;
+              padding: 0 8px;
+
+              > .text-area {
+                width: 100%;
+                min-width: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                background-color: #40444b;
+                border-radius: 8px;
+                padding: 8px 12px;
+
+                &.disabled {
+                  opacity: 0.5;
+                  pointer-events: none;
+                }
+
+                .attachment-icon {
+                  width: 24px;
+                  height: 24px;
+                  color: #b9bbbe;
+                  margin-right: 8px;
+                }
+
+                > .writing-area {
+                  display: flex;
+                  align-items: center;
+                  min-height: 42px;
+                  color: rgb(236, 236, 236);
+                  font-size: 16px;
+                  width: 100%;
+
+                  > .content {
+                    width: 100%;
+                  }
+                }
+              }
+            }
+          }
+
+          > .guild-members {
+            display: flex;
+            width: 240px;
+            height: calc(100vh - 22px - 44px);
+            background-color: #2f3136;
+          }
+        }
+      }
+    }
+  }
+}
