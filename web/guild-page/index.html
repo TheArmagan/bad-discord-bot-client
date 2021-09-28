@@ -182,27 +182,36 @@
             <div class="messages-main-container">
               <div class="messages-area">
                 <div ref="messagesWrapper" class="messages-wrapper">
-                  <div v-for="msg in channelMessagesSortedArray" class="message" :key="msg.id">
+                  <div v-for="msg in channelMessagesSortedArray" class="message" :class="{'deleted': msg.deleted}" :key="msg.id">
                     <div class="avatar" :style="`background-image: url('${msg.author.avatar}');`"></div>
                     <div class="content-area">
-                      <div class="username">
+                      <div class="content-info">
                         <div class="name">{{msg.author.username}}</div>
                         <div class="discrim-container">
                           <div class="discrim">
                             #{{msg.author.discriminator}}
                           </div>
                         </div>
+                        <div class="created-at">
+                          {{new Date(msg.createdTimestamp).toLocaleDateString()}} {{new Date(msg.createdTimestamp).toLocaleTimeString()}}
+                        </div>
                       </div>
                       <div class="content">
                         <div class="text">
-                          {{msg.cleanContent}}
+                          {{msg.content}}
+                        </div>
+                        <div v-if="msg.embeds.length != 0" class="embeds">
+                          <a v-for="el in msg.embeds.filter(i=>i.type=='image'||i.type=='video')" :href="el.url" target="_blank">
+                            <img v-if="el.type == 'image'" :src="el.url" :key="el.url" />
+                            <video v-if="el.type == 'video'" :src="el.url" :key="el.url" controls="true" />
+                          </a>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="input-container">
-                  <div class="text-area" :class="{'disabled': !currentChannel.canWrite}">
+                  <div class="text-area" :class="{'disabled': !canWrite}">
                     <div class="attachment-icon">
                       <svg width="24" height="24" viewBox="0 0 24 24">
                         <path fill="currentColor" d="M12 2.00098C6.486 2.00098 2 6.48698 2 12.001C2 17.515 6.486 22.001 12 22.001C17.514 22.001 22 17.515 22 12.001C22 6.48698 17.514 2.00098 12 2.00098ZM17 13.001H13V17.001H11V13.001H7V11.001H11V7.00098H13V11.001H17V13.001Z"></path>
@@ -212,7 +221,7 @@
                       <span 
                         ref="writingAreaContent" 
                         class="content" 
-                        :contenteditable="`${currentChannel.canWrite ? 'true' : 'false'}`" 
+                        :contenteditable="`${canWrite}`" 
                         @input="textBoxContent = $event.target.innerHTML"
                         @keydown="onTextBoxKeyDown"></span>
                     </div>

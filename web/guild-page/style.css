@@ -515,9 +515,12 @@ body,
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding: 0 16px;
+  padding: 0px 16px;
   margin-bottom: 16px;
-  color: #ffffff;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message.deleted {
+  background-color: #483a40;
 }
 
 #app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .avatar {
@@ -535,7 +538,7 @@ body,
   margin-left: 16px;
 }
 
-#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .content-area > .username {
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .content-area > .content-info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -543,7 +546,11 @@ body,
   margin-bottom: 4px;
 }
 
-#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .content-area > .username > .discrim-container {
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .content-area > .content-info > .name {
+  color: #ffffff;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .content-area > .content-info > .discrim-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -555,13 +562,27 @@ body,
           justify-content: flex-start;
 }
 
-#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .content-area > .username > .discrim-container > .discrim {
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .content-area > .content-info > .discrim-container > .discrim {
   font-size: 12px;
-  opacity: 0.5;
+  color: #cecece;
 }
 
-#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .content-area > .content {
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .content-area > .content-info > .created-at {
+  margin-left: 6px;
+  color: #656b75;
+  font-size: 12px;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .content-area > .content > .text {
   color: #e0e0e0;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .content-area > .content > .embeds {
+  margin-top: 8px;
+}
+
+#app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .content-area > .content > .embeds img, #app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .messages-wrapper > .message > .content-area > .content > .embeds video {
+  max-width: 250px;
 }
 
 #app .container > .main-area > .messages-container > .messages-main-container > .messages-area > .input-container {

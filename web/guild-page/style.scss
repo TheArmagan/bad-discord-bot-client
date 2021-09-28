@@ -372,9 +372,12 @@ body,
               > .message {
                 width: 100%;
                 display: flex;
-                padding: 0 16px;
+                padding: 0px 16px;
                 margin-bottom: 16px;
-                color: #ffffff;
+
+                &.deleted {
+                  background-color: #483a40;
+                }
 
                 > .avatar {
                   min-width: 40px;
@@ -388,11 +391,15 @@ body,
                 }
 
                 > .content-area {
-                  > .username {
+                  > .content-info {
                     display: flex;
                     position: relative;
                     margin-bottom: 4px;
                     
+                    > .name {
+                      color: #ffffff;
+                    }
+
                     > .discrim-container {
                       display: flex;
                       align-items: flex-end;
@@ -400,15 +407,29 @@ body,
 
                       > .discrim {
                         font-size: 12px;
-                        opacity: 0.5;
+                        color: #cecece;
                       }
+                    }
+
+                    > .created-at {
+                      margin-left: 6px;
+                      color: #656b75;
+                      font-size: 12px;
                     }
                   }
 
                   > .content {
-                    color: #e0e0e0;
-                  }
+                    > .text {
+                      color: #e0e0e0;
+                    }
 
+                    > .embeds {
+                      margin-top: 8px;
+                      img, video {
+                        max-width: 250px;
+                      }
+                    }
+                  }
                   margin-left: 16px;
                 }
               }

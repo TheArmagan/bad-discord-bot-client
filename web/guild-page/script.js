@@ -61,7 +61,10 @@ function getHashKey(key) {
             break;
           }
           case "messageDelete": {
-            delete this.channelMessages[data];
+            if (this.channelMessages[data]) {
+              Vue.set(this.channelMessages[data], "deleted", true);
+            }
+            
             break;
           }
           case "userUpdate": {
@@ -74,7 +77,6 @@ function getHashKey(key) {
     },
     data() {
       return {
-        twemoji,
         guild,
         clientUser,
         guilds,
@@ -86,10 +88,10 @@ function getHashKey(key) {
     },
     computed: {
       channelMessagesSortedArray() {
-        return Object.values(this.channelMessages).sort((a, b) => a.createdAt - b.createdAt)
+        return Object.values(this.channelMessages).sort((a, b) => a.createdTimestamp - b.createdTimestamp)
       },
-      markdown() {
-        return markdown;
+      canWrite() {
+        return this.currentChannel.canWrite;
       }
     },
     watch: {

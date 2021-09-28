@@ -6,6 +6,7 @@
     "express": "^4.17.1",
     "fresh.db": "^1.0.6",
     "mnemonist": "^0.38.4",
+    "stuffs": "^0.1.6",
     "ws": "^8.2.2"
   },
   "devDependencies": {

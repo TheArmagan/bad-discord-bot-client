@@ -5,6 +5,7 @@ const express = require("express");
 const eApp = express();
 const WebSocket = require("ws");
 const wss = new WebSocket.Server({ port: CONFIG.PORT + 1 });
+const stuffs = require("stuffs");
 
 function wsSend(event, data) {
   wss.clients.forEach((socket) => {
@@ -120,7 +121,23 @@ eApp.get("/api/messages", async (req, res) => {
   if (!channel || !channel.isText()) return res.send([]);
   if (channel.messages.cache.size == 0) await channel.messages.fetch({ limit: 50 });
   return res.send(Object.fromEntries([...channel.messages.cache.entries()].sort((a, b)=>a[1].createdAt-b[1].createdAt).map(([id, msg]) => {
-    return [id, msg.toJSON()]
+    return [id, {
+      content: msg.content,
+      embeds: msg.embeds.map(i => {
+        let ext = stuffs.getFileExtension((i.image || i.video)?.url || i.url || "");
+        return ({
+          url: i.url,
+          type: ["gif", "png", "jpeg", "jfif", "jpg"].includes(ext)
+            ? "image"
+            : ["webm", "mp4", "mov"].includes(ext)
+              ? "video"
+              : "rich"
+        })
+      }),
+      createdTimestamp: msg.createdTimestamp,
+      authorId: msg.author.id,
+      id: msg.id
+    }]
   })));
 })
 
