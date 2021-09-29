@@ -83,7 +83,8 @@ function getHashKey(key) {
         currentChannel: {},
         channelMessages: {},
         textBoxContent: "",
-        users: {}
+        users: {},
+        membersSidebar: getHashKey("msb") == "true",
       }
     },
     computed: {
@@ -97,6 +98,9 @@ function getHashKey(key) {
     watch: {
       channelMessages() {
         this.messagesScrollBottom();
+      },
+      membersSidebar(val) {
+        setHashKey("msb", val);
       }
     },
     methods: {

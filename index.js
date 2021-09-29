@@ -122,7 +122,7 @@ eApp.get("/api/messages", async (req, res) => {
   if (channel.messages.cache.size == 0) await channel.messages.fetch({ limit: 50 });
   return res.send(Object.fromEntries([...channel.messages.cache.entries()].sort((a, b)=>a[1].createdAt-b[1].createdAt).map(([id, msg]) => {
     return [id, {
-      content: msg.content,
+      content: msg.system ? `${msg.author.tag} did something cool!` : msg.content,
       embeds: msg.embeds.map(i => {
         let ext = stuffs.getFileExtension((i.image || i.video)?.url || i.url || "");
         return ({
@@ -155,7 +155,7 @@ function userToJson(user) {
     id: user.id,
     username: user.username,
     discriminator: user.discriminator,
-    avatar: user.avatarURL({ dynamic: true, size: 256 }),
+    avatar: user.displayAvatarURL({ dynamic: true, size: 256 }),
     bot: user.bot,
     createdAt: user.createdAt
   }
