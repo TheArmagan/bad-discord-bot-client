@@ -222,7 +222,7 @@
                         ref="writingAreaContent" 
                         class="content" 
                         :contenteditable="`${canWrite}`" 
-                        @input="textBoxContent = $event.target.innerHTML"
+                        @input="textBoxContent = $event.target.textContent"
                         @keydown="onTextBoxKeyDown"></span>
                     </div>
 
